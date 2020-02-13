@@ -3,6 +3,7 @@ import { Todo } from 'src/app/shared/interfaces/todo';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { RequestService } from 'src/app/shared/services/request.service';
 
 @Component({
   selector: 'app-create-list',
@@ -11,7 +12,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CreateListComponent implements OnInit {
   newTodoForm: FormGroup;
-  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private router: Router, private requestService: RequestService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -25,9 +26,8 @@ export class CreateListComponent implements OnInit {
         attr: new FormControl()
       })*/
     });
-    console.log(this.newTodoForm);
   }
-  saveData(): void{
+  /*saveData(): void{
     if (this.newTodoForm.invalid) {
       return;
     }
@@ -39,6 +39,25 @@ export class CreateListComponent implements OnInit {
       console.log(todo);
       this.router.navigateByUrl('list/todoList');
     });
+  }*/
+  saveForm(){
+    if (this.newTodoForm.invalid) {
+      return;
+    }
+    let dataForm = this.newTodoForm.value;
+    this.requestService.saveData(dataForm).then(() => {
+      //console.log(dataForm);
+      this.saveAllData(dataForm);
+      this.router.navigateByUrl('list/todoList');
+    }).catch(err=> console.error(err));
+    /*.then((todo: Todo) => {
+      console.log(todo);
+      router.navigateByUrl('list/todoList');
+    });*/
+  }
+  saveAllData(todo: Todo){
+    this.activeModal.close({todo: todo});
+    console.log('save info',todo);
   }
   clearData(){
     this.createForm();

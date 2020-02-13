@@ -1,1 +1,34 @@
-<p>update-list works!</p>
+<header>
+<div class="offset-3 my-4">
+  <input (input)="myFilter($event)" class="col-2" type="text">
+</div>
+</header>
+<div class="row mx-0 my-4">
+  <ul class="list-group col-6 mx-auto">
+    <li class="row list-group-item" *ngFor="let todo of todos[page-1]">
+      <div class="col-8">
+        {{ todo.title }}
+      </div>
+      <div class="col-4">
+        <button type="button"><i class="fas fa-edit"></i></button>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="row mx-0">
+  <nav class="mx-auto" aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{ disabled: page === 1 }" (click)="to(page - 1)">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item" [ngClass]="{ active: i + 1 === page}" *ngFor="let todo of todos; let i = index"
+          (click)="to(i + 1)">
+        <a class="page-link">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [ngClass]="{ disabled: page === 20 }" (click)="to(page + 1)">
+        <a class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
