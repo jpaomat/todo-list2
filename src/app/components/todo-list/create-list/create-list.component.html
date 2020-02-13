@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title mx-auto">Crear tarea</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="newTodoForm">
+      <div class="form-group col-10 mx-auto">
+        <label for="title">Title</label>
+        <!--input:text.form-control#title[name=Title require]-->
+        <input formControlName="title" type="text" name="title" id="title" placeholder="Title" class="form-control" required>
+      </div>
+      <div class="form-group col-10 mx-auto">
+        <label for="title">UserId</label>
+        <!--input:text.form-control#title[name=Title require]-->
+        <input formControlName="userId" type="number" name="userId" id="userId" placeholder="UserId" class="form-control" required>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group form-check">
+          <input formControlName="completed" type="checkbox" name="completed" id="completed" class="form-check-input">
+
+          <label for="completed" class="form-check-label">mark if completed</label>
+          <!--input:text.form-control#title[name=Title require]-->
+        </div>
+      </div>
+      <!--<div class="row justify-content-center">
+
+        <button (click)="saveData()" class="btn btn-primary mr-2" [disabled]='newTodoForm.invalid'>Save</button>
+      </div>-->
+  </form>
+</div>
+<div class="modal-footer row justify-content-center">
+  <button submit class="btn btn-secondary mr-2" (click)="clearData()">Clear</button>
+  <!--<button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')" >Close</button>-->
+  <button type="button" class="btn btn-primary mr-2" (click)="saveData()" [disabled]='newTodoForm.invalid' >Save</button>
+</div>
